@@ -3,7 +3,7 @@ import Button from '../../components/Button'
 import Title from '../../components/Title'
 import { Avatar, useTheme } from '@mui/material'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { User, UserPayload, UserRole } from '../../types/user'
+import { UserPayload, UserRole } from '../../types/user'
 import { useEffect, useState } from 'react'
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import TextField from '@mui/material/TextField'
@@ -13,7 +13,6 @@ import { fetchUser } from '../../api/user'
 import { modifyMyInfo } from '../../api/user'
 import { instance } from '../../api/instance'
 import { setUser, useAccessTokenInfo } from '../../store/slices/userSlice'
-import { getCookie } from '../../util'
 
 function EditProfile() {
   const theme = useTheme()
@@ -56,6 +55,7 @@ function EditProfile() {
 
         const { username, name, fileName } = userResponse.data
 
+        // @ts-ignore
         const payload: UserPayload = { ...userState.userPayload, username, name, image: fileName }
 
         dispatch(setUser(payload))
